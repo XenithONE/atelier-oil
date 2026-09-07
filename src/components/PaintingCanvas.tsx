@@ -9,7 +9,9 @@ import {
 } from "lucide-react";
 import type { Brush, Point } from "../types";
 import { OilEngine } from "../engine/OilEngine";
+import CanvasRecording from "./CanvasRecording";
 interface Props {
+  name: string;
   engine: OilEngine;
   brush: Brush;
   revision: number;
@@ -21,6 +23,7 @@ interface Props {
   ready: boolean;
 }
 export default function PaintingCanvas({
+  name,
   engine,
   brush,
   revision,
@@ -33,6 +36,7 @@ export default function PaintingCanvas({
 }: Props) {
   const host = useRef<HTMLDivElement>(null),
     canvas = useRef<HTMLCanvasElement>(null),
+    recordingPointer = useRef<Point | null>(null),
     raf = useRef(0),
     drawing = useRef<number | null>(null),
     space = useRef(false),
@@ -182,6 +186,7 @@ export default function PaintingCanvas({
             const r = host.current!.getBoundingClientRect();
             setCursor({ x: e.clientX - r.left, y: e.clientY - r.top });
             const p = point(e);
+            recordingPointer.current = p;
             onPosition(`${Math.round(p.x)}, ${Math.round(p.y)}`);
             if (panStart.current) {
               setPan({
@@ -205,7 +210,10 @@ export default function PaintingCanvas({
           }}
           onPointerCancel={finish}
           onLostPointerCapture={finish}
-          onPointerLeave={() => setCursor(null)}
+          onPointerLeave={() => {
+            setCursor(null);
+            recordingPointer.current = null;
+          }}
           onKeyDown={(e) => {
             if (!ready) return;
             if (e.code === "Space") {
@@ -253,6 +261,7 @@ export default function PaintingCanvas({
                 ),
               };
               const p = keyPoint.current;
+              recordingPointer.current = p;
               setCursor({
                 x:
                   area.w / 2 + pan.x - (engine.width * scale) / 2 + p.x * scale,
@@ -288,6 +297,12 @@ export default function PaintingCanvas({
           </div>
         )}
       </div>
+      <CanvasRecording
+        canvas={canvas}
+        pointer={recordingPointer}
+        brush={brush}
+        name={name}
+      />
       {cursor && !moving && brush.tool !== "picker" && (
         <div
           className="brush-cursor"

@@ -392,6 +392,7 @@ export default function App() {
           />
         </aside>
         <PaintingCanvas
+          name={name}
           engine={engine}
           brush={brush}
           revision={revision}

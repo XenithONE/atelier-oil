@@ -155,6 +155,29 @@ export function download(blob: Blob, name: string) {
     a = document.createElement("a");
   a.href = url;
   a.download = name.replace(/[<>:"/\\|?*]/g, "_");
+  // Keep a real, user-activated link available when a browser blocks automatic downloads.
+  let tray = document.getElementById("export-downloads");
+  if (!tray) {
+    tray = document.createElement("aside");
+    tray.id = "export-downloads";
+    tray.className = "export-downloads";
+    tray.setAttribute("aria-label", "書き出しファイル");
+    const hint = document.createElement("p");
+    hint.textContent = "保存が始まらない場合は、ファイル名を選んでください。";
+    tray.append(hint);
+    document.body.append(tray);
+  }
+  const row = document.createElement("div"),
+    close = document.createElement("button");
+  a.textContent = a.download;
+  close.textContent = "×";
+  close.setAttribute("aria-label", `${a.download} の保存リンクを閉じる`);
+  close.onclick = () => {
+    URL.revokeObjectURL(url);
+    row.remove();
+    if (tray?.children.length === 1) tray.remove();
+  };
+  row.append(a, close);
+  tray.append(row);
   a.click();
-  setTimeout(() => URL.revokeObjectURL(url), 60000);
 }

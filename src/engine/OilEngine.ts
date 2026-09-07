@@ -348,7 +348,11 @@ export class OilEngine {
         const i = y * this.width + x,
           j = i * 4,
           lane = Math.round(clamp((v + 1) * 0.5) * 47);
-        const edge = clamp((1 - shape) * 9),
+        // A diluted round/filbert brush feathers at its edge for translucent glazes.
+        const feather = b.tool === "round" || b.tool === "filbert" ? medium : 0;
+        const edge =
+            clamp((1 - shape) * 9) * (1 - feather) +
+            Math.pow(1 - shape * shape, 3) * feather,
           bristle =
             0.22 +
             0.78 *

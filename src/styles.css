@@ -1605,3 +1605,17 @@ h2 {
     font-size: 10px;
   }
 }
+/* Live canvas recording: controls remain outside the exported painting. */
+.recording-panel { position: absolute; top: 12px; left: 16px; z-index: 4; max-width: calc(100% - 32px); }
+.recording-panel.is-recording { padding: 7px 10px; background: #f5f1e9f2; border: 1px solid #d1c7b6; border-radius: 8px; box-shadow: 0 3px 12px #0001; }
+.recording-actions { display: flex; align-items: center; gap: 7px; }
+.recording-actions .secondary { padding: 6px 10px; font-size: 12px; }
+.recording-actions .icon-button { width: 27px; height: 27px; }
+.recording-clock { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-variant-numeric: tabular-nums; color: #914632; }
+.recording-panel input { display: block; width: 240px; max-width: 100%; padding: 4px 0 0; background: transparent; border: 0; font-size: 11px; color: #645d50; }
+.recording-panel p { max-width: 260px; font-size: 12px; color: #a43e27; background: #fff5e7; padding: 8px; }
+.export-downloads { position: fixed; z-index: 100; right: 18px; bottom: 45px; width: min(390px, calc(100vw - 36px)); max-height: min(45vh, 380px); overflow-y: auto; padding: 14px; border: 1px solid #c5baa8; border-radius: 8px; background: #faf7ef; box-shadow: 0 6px 25px #0002; }
+.export-downloads p { font-size: 11px; color: #746b5b; margin: 0 0 8px; }
+.export-downloads > div { display: flex; align-items: center; gap: 12px; }
+.export-downloads a { flex: 1; min-width: 0; overflow-wrap: anywhere; font-size: 12px; color: #536146; text-decoration: underline; padding: 8px 0; }
+.export-downloads button { border: 0; background: transparent; padding: 8px; font-size: 20px; }
