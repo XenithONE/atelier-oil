@@ -242,6 +242,7 @@ input[type="number"]:hover::-webkit-inner-spin-button {
   gap: 10px;
 }
 .tool-button {
+  padding: 6px 2px;
   border: 1px solid var(--line);
   border-radius: 4px;
   display: flex;
@@ -252,6 +253,9 @@ input[type="number"]:hover::-webkit-inner-spin-button {
   height: 82px;
   background: #faf8f3;
   font-size: 13px;
+}
+.tool-button span {
+  white-space: nowrap;
 }
 .tool-button svg {
   width: 30px;

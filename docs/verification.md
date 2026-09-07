@@ -22,6 +22,8 @@ The Codex in-app browser was used throughout; no Playwright Chromium fallback wa
 
 The in-app browser's download-event wait timed out, but the actual exported PNG was verified in the browser's Downloads location. The project download and file chooser restore were verified independently. This is a browser automation event limitation, not an app export failure.
 
+The deployed GitHub Pages URL was also opened and a stroke was drawn and undone successfully. Production-URL console errors were absent. A Japanese tool name wrapping on the 1280px release viewport was found and corrected with explicit tool-button padding and no-wrap labels. Development hot reload produced temporary React errors while formatting multiple source files; reloading restored the development app, and the deployed static build did not reproduce them.
+
 ## Visual verification
 
 Reference: `design/concept.png`, built-in Image Gen, 1536×1024. Screenshot: `design/implementation.png`, captured from the in-app browser at 1536×1024. Both files were opened with `view_image` in the same comparison pass. A screenshot containing the actual editable practice study is saved as `docs/preview.png` and is used by the portfolio.
